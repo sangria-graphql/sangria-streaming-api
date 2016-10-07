@@ -1,8 +1,9 @@
 package sangria.streaming
 
+import scala.language.higherKinds
+
 import scala.annotation.implicitNotFound
 import scala.concurrent.Future
-import scala.language.higherKinds
 
 @implicitNotFound(msg =
     "Can't find suitable `SubscriptionStream` type-class instance for type `${StreamSource}`. " +
