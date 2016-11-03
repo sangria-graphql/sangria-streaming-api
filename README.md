@@ -7,7 +7,7 @@ A common API implemented by different streaming libraries (like sangria-akka-str
 SBT Configuration:
 
 ```scala
-libraryDependencies += "org.sangria-graphql" %% "sangria-streaming-api" % "0.1.0"
+libraryDependencies += "org.sangria-graphql" %% "sangria-streaming-api" % "0.1.1"
 ```
 
 ## License
