@@ -1,6 +1,6 @@
 name := "sangria-streaming-api"
 organization := "org.sangria-graphql"
-version := "1.0.0"
+version := "1.0.1-SNAPSHOT"
 
 description := "Sangria Streaming API"
 homepage := Some(url("http://sangria-graphql.org"))
