@@ -18,6 +18,13 @@ scalacOptions ++= {
     Seq("-target:jvm-1.7")
 }
 
+lazy val sangriaStreamingApiOsgiSettings = osgiSettings ++ Seq(
+  OsgiKeys.exportPackage := Seq("sangria.streaming.*;version=${Bundle-Version}"),
+  OsgiKeys.privatePackage := Seq()
+)
+
+lazy val sangriaStreamingApiProject = project.in(file(".")).enablePlugins(SbtOsgi).settings(sangriaStreamingApiOsgiSettings:_*)
+
 git.remoteRepo := "git@github.com:sangria-graphql/sangria-streaming-api.git"
 
 // Publishing
