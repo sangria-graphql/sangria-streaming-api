@@ -17,11 +17,11 @@ trait SubscriptionStream[StreamSource[_]] {
   def singleFuture[T](value: Future[T]): StreamSource[T]
   def first[T](s: StreamSource[T]): Future[T]
   def failed[T](e: Throwable): StreamSource[T]
-  def onComplete[Ctx, Res](result: StreamSource[Res])(op: ⇒ Unit): StreamSource[Res]
-  def flatMapFuture[Ctx, Res, T](future: Future[T])(resultFn: T ⇒ StreamSource[Res]): StreamSource[Res]
-  def mapFuture[A, B](source: StreamSource[A])(fn: A ⇒ Future[B]): StreamSource[B]
-  def map[A, B](source: StreamSource[A])(fn: A ⇒ B): StreamSource[B]
+  def onComplete[Ctx, Res](result: StreamSource[Res])(op: => Unit): StreamSource[Res]
+  def flatMapFuture[Ctx, Res, T](future: Future[T])(resultFn: T => StreamSource[Res]): StreamSource[Res]
+  def mapFuture[A, B](source: StreamSource[A])(fn: A => Future[B]): StreamSource[B]
+  def map[A, B](source: StreamSource[A])(fn: A => B): StreamSource[B]
   def merge[T](streams: Vector[StreamSource[T]]): StreamSource[T]
-  def recover[T](stream: StreamSource[T])(fn: Throwable ⇒ T): StreamSource[T]
+  def recover[T](stream: StreamSource[T])(fn: Throwable => T): StreamSource[T]
 }
 
