@@ -1,6 +1,7 @@
 name := "sangria-streaming-api"
 organization := "org.sangria-graphql"
 version := "1.0.1-SNAPSHOT"
+mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.0")
 
 description := "Sangria Streaming API"
 homepage := Some(url("http://sangria-graphql.org"))
