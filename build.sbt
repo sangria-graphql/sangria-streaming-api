@@ -1,6 +1,5 @@
 name := "sangria-streaming-api"
 organization := "org.sangria-graphql"
-version := "1.0.1-SNAPSHOT"
 mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.0")
 
 description := "Sangria Streaming API"
@@ -22,7 +21,8 @@ scalacOptions ++= {
 git.remoteRepo := "git@github.com:sangria-graphql/sangria-streaming-api.git"
 
 // Publishing
-
+releaseCrossBuild := true
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
 publishMavenStyle := true
 publishArtifact in Test := false
 pomIncludeRepository := (_ ⇒ false)
