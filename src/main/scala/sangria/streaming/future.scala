@@ -23,17 +23,18 @@ object future {
 
     def onComplete[Ctx, Res](result: Future[Res])(op: => Unit) =
       result
-          .map {x => op; x}
-          .recover {case e => op; throw e}
+        .map { x => op; x }
+        .recover { case e => op; throw e }
 
     def flatMapFuture[Ctx, Res, T](future: Future[T])(resultFn: T => Future[Res]) =
-      future flatMap resultFn
+      future.flatMap(resultFn)
 
     def merge[T](streams: Vector[Future[T]]) = Future.firstCompletedOf(streams)
 
     def recover[T](stream: Future[T])(fn: Throwable => T) =
-      stream recover {case e => fn(e)}
+      stream.recover { case e => fn(e) }
   }
 
-  implicit def futureSubscriptionStream(implicit ec: ExecutionContext) = new FutureSubscriptionStream
+  implicit def futureSubscriptionStream(implicit ec: ExecutionContext) =
+    new FutureSubscriptionStream
 }
