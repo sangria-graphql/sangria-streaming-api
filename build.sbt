@@ -4,25 +4,27 @@ mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-streaming-api" % 
 
 description := "Sangria Streaming API"
 homepage := Some(url("http://sangria-graphql.org"))
-licenses := Seq("Apache License, ASL Version 2.0" → url("http://www.apache.org/licenses/LICENSE-2.0"))
+licenses := Seq(
+  "Apache License, ASL Version 2.0" → url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 ThisBuild / crossScalaVersions := Seq("2.11.12", "2.12.12", "2.13.4")
 ThisBuild / scalaVersion := crossScalaVersions.value.last
 ThisBuild / githubWorkflowPublishTargetBranches := List()
 ThisBuild / githubWorkflowBuildPreamble ++= List(
+  WorkflowStep.Sbt(List("scalafmtCheckAll"), name = Some("Check formatting")),
   WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility"))
 )
 
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 scalacOptions ++= {
-  if (scalaVersion.value startsWith "2.11")
+  if (scalaVersion.value.startsWith("2.11"))
     Seq("-target:jvm-1.7")
   else
     Seq("-target:jvm-1.8")
 }
 javacOptions ++= {
-  if (scalaVersion.value startsWith "2.11")
+  if (scalaVersion.value.startsWith("2.11"))
     Seq("-source", "7", "-target", "7")
   else
     Seq("-source", "8", "-target", "8")
@@ -38,9 +40,9 @@ publishArtifact in Test := false
 pomIncludeRepository := (_ ⇒ false)
 publishTo := Some(
   if (version.value.trim.endsWith("SNAPSHOT"))
-    "snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+    "snapshots".at("https://oss.sonatype.org/content/repositories/snapshots")
   else
-    "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
+    "releases".at("https://oss.sonatype.org/service/local/staging/deploy/maven2"))
 
 // nice *magenta* prompt!
 
@@ -52,8 +54,13 @@ shellPrompt in ThisBuild := { state ⇒
 
 startYear := Some(2016)
 organizationHomepage := Some(url("https://github.com/sangria-graphql"))
-developers := Developer("OlegIlyenko", "Oleg Ilyenko", "", url("https://github.com/OlegIlyenko")) :: Nil
-scmInfo := Some(ScmInfo(
-  browseUrl = url("https://github.com/sangria-graphql/sangria-streaming-api.git"),
-  connection = "scm:git:git@github.com:sangria-graphql/sangria-streaming-api.git"
-))
+developers := Developer(
+  "OlegIlyenko",
+  "Oleg Ilyenko",
+  "",
+  url("https://github.com/OlegIlyenko")) :: Nil
+scmInfo := Some(
+  ScmInfo(
+    browseUrl = url("https://github.com/sangria-graphql/sangria-streaming-api.git"),
+    connection = "scm:git:git@github.com:sangria-graphql/sangria-streaming-api.git"
+  ))
