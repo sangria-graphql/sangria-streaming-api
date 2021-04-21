@@ -4,8 +4,6 @@ resolvers += Resolver.url(
 )(Resolver.ivyStylePatterns)
 resolvers += "jgit-repo" at "https://download.eclipse.org/jgit/maven"
 
-addSbtPlugin("com.github.sbt" % "sbt-release" % "1.0.15")
-addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.2")
 addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.8.1")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.0")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.2")
