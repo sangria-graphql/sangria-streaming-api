@@ -53,6 +53,6 @@ developers := Developer(
   url("https://github.com/OlegIlyenko")) :: Nil
 scmInfo := Some(
   ScmInfo(
-    browseUrl = url("https://github.com/sangria-graphql/sangria-streaming-api.git"),
+    browseUrl = url("https://github.com/sangria-graphql/sangria-streaming-api"),
     connection = "scm:git:git@github.com:sangria-graphql/sangria-streaming-api.git"
   ))
