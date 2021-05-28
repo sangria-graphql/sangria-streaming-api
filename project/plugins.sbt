@@ -2,7 +2,7 @@ resolvers += Resolver.url(
   "typesafe sbt-plugins",
   url("https://dl.bintray.com/typesafe/sbt-plugins")
 )(Resolver.ivyStylePatterns)
-resolvers += "jgit-repo" at "https://download.eclipse.org/jgit/maven"
+resolvers += "jgit-repo".at("https://download.eclipse.org/jgit/maven")
 
 addSbtPlugin("com.typesafe" % "sbt-mima-plugin" % "0.9.2")
 addSbtPlugin("com.typesafe.sbt" % "sbt-git" % "1.0.1")

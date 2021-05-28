@@ -21,7 +21,7 @@ object SubscriptionStreamLike {
       ev1: ValidOutStreamType[Res, Out]): SubscriptionStreamLike[S[A[Ctx, Res]], A, Ctx, Res, Out] =
     new SubscriptionStreamLike[S[A[Ctx, Res]], A, Ctx, Res, Out] {
       type StreamSource[X] = S[X]
-      val subscriptionStream = ev
+      val subscriptionStream: SubscriptionStream[S] = ev
     }
 
 }

@@ -1,13 +1,22 @@
+val isScala3 = Def.setting(
+  CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
+)
+
 name := "sangria-streaming-api"
 organization := "org.sangria-graphql"
 mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.1")
-
+mimaPreviousArtifacts := {
+  if (isScala3.value)
+    Set.empty
+  else
+    Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.1")
+}
 description := "Sangria Streaming API"
 homepage := Some(url("http://sangria-graphql.org"))
 licenses := Seq(
   "Apache License, ASL Version 2.0" → url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6")
+ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6", "3.0.0")
 ThisBuild / scalaVersion := crossScalaVersions.value.last
 ThisBuild / githubWorkflowPublishTargetBranches := List()
 ThisBuild / githubWorkflowBuildPreamble ++= List(
@@ -16,8 +25,6 @@ ThisBuild / githubWorkflowBuildPreamble ++= List(
 )
 
 scalacOptions ++= Seq("-deprecation", "-feature")
-
-scalacOptions ++= Seq("-target:jvm-1.8")
 javacOptions ++= Seq("-source", "8", "-target", "8")
 
 // Publishing
