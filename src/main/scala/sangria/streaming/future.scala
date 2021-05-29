@@ -1,5 +1,7 @@
 package sangria.streaming
 
+import scala.language.higherKinds
+
 import scala.concurrent.{ExecutionContext, Future}
 
 object future {
