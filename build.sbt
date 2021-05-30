@@ -4,12 +4,11 @@ val isScala3 = Def.setting(
 
 name := "sangria-streaming-api"
 organization := "org.sangria-graphql"
-mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.1")
 mimaPreviousArtifacts := {
   if (isScala3.value)
     Set.empty
   else
-    Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.1")
+    Set("org.sangria-graphql" %% "sangria-streaming-api" % "1.0.2")
 }
 description := "Sangria Streaming API"
 homepage := Some(url("http://sangria-graphql.org"))
