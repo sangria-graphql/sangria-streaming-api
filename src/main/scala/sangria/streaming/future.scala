@@ -1,40 +1,41 @@
 package sangria.streaming
 
-import language.higherKinds
+import scala.language.higherKinds
 
 import scala.concurrent.{ExecutionContext, Future}
 
 object future {
   class FutureSubscriptionStream(implicit ec: ExecutionContext) extends SubscriptionStream[Future] {
-    def supported[T[_]](other: SubscriptionStream[T]) = other.isInstanceOf[FutureSubscriptionStream]
+    def supported[T[_]](other: SubscriptionStream[T]): Boolean =
+      other.isInstanceOf[FutureSubscriptionStream]
 
-    def map[A, B](source: Future[A])(fn: A => B) = source.map(fn)
+    def map[A, B](source: Future[A])(fn: A => B): Future[B] = source.map(fn)
 
-    def singleFuture[T](value: Future[T]) = value
+    def singleFuture[T](value: Future[T]): Future[T] = value
 
-    def single[T](value: T) = Future.successful(value)
+    def single[T](value: T): Future[T] = Future.successful(value)
 
-    def mapFuture[A, B](source: Future[A])(fn: A => Future[B]) =
+    def mapFuture[A, B](source: Future[A])(fn: A => Future[B]): Future[B] =
       source.flatMap(fn)
 
-    def first[T](s: Future[T]) = s
+    def first[T](s: Future[T]): Future[T] = s
 
-    def failed[T](e: Throwable) = Future.failed(e)
+    def failed[T](e: Throwable): Future[T] = Future.failed(e)
 
-    def onComplete[Ctx, Res](result: Future[Res])(op: => Unit) =
+    def onComplete[Ctx, Res](result: Future[Res])(op: => Unit): Future[Res] =
       result
         .map { x => op; x }
         .recover { case e => op; throw e }
 
-    def flatMapFuture[Ctx, Res, T](future: Future[T])(resultFn: T => Future[Res]) =
+    def flatMapFuture[Ctx, Res, T](future: Future[T])(resultFn: T => Future[Res]): Future[Res] =
       future.flatMap(resultFn)
 
-    def merge[T](streams: Vector[Future[T]]) = Future.firstCompletedOf(streams)
+    def merge[T](streams: Vector[Future[T]]): Future[T] = Future.firstCompletedOf(streams)
 
-    def recover[T](stream: Future[T])(fn: Throwable => T) =
+    def recover[T](stream: Future[T])(fn: Throwable => T): Future[T] =
       stream.recover { case e => fn(e) }
   }
 
-  implicit def futureSubscriptionStream(implicit ec: ExecutionContext) =
+  implicit def futureSubscriptionStream(implicit ec: ExecutionContext): FutureSubscriptionStream =
     new FutureSubscriptionStream
 }
