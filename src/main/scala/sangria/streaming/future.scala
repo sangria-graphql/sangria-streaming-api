@@ -11,11 +11,11 @@ object future {
 
     def map[A, B](source: Future[A])(fn: A => B): Future[B] = source.map(fn)
 
-    def singleFuture[T](value: Future[T]): Future[T] = value
+    def singleF[T](value: Future[T]): Future[T] = value
 
     def single[T](value: T): Future[T] = Future.successful(value)
 
-    def mapFuture[A, B](source: Future[A])(fn: A => Future[B]): Future[B] =
+    def mapF[A, B](source: Future[A])(fn: A => Future[B]): Future[B] =
       source.flatMap(fn)
 
     def first[T](s: Future[T]): Future[T] = s
@@ -27,7 +27,7 @@ object future {
         .map { x => op; x }
         .recover { case e => op; throw e }
 
-    def flatMapFuture[Ctx, Res, T](future: Future[T])(resultFn: T => Future[Res]): Future[Res] =
+    def flatMap[Ctx, Res, T](future: Future[T])(resultFn: T => Future[Res]): Future[Res] =
       future.flatMap(resultFn)
 
     def merge[T](streams: Vector[Future[T]]): Future[T] = Future.firstCompletedOf(streams)
