@@ -18,8 +18,7 @@ trait SubscriptionStream[StreamSource[_]] {
   def first[T](s: StreamSource[T]): StreamSource[T]
   def failed[T](e: Throwable): StreamSource[T]
   def onComplete[Ctx, Res](result: StreamSource[Res])(op: => Unit): StreamSource[Res]
-  def flatMap[Ctx, Res, T](f: StreamSource[T])(
-      resultFn: T => StreamSource[Res]): StreamSource[Res]
+  def flatMap[Ctx, Res, T](f: StreamSource[T])(resultFn: T => StreamSource[Res]): StreamSource[Res]
   def mapF[A, B](source: StreamSource[A])(fn: A => StreamSource[B]): StreamSource[B]
   def map[A, B](source: StreamSource[A])(fn: A => B): StreamSource[B]
   def merge[T](streams: Vector[StreamSource[T]]): StreamSource[T]
