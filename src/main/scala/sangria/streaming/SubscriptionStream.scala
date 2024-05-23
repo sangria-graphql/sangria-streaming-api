@@ -3,7 +3,6 @@ package sangria.streaming
 import scala.language.higherKinds
 
 import scala.annotation.implicitNotFound
-import scala.concurrent.Future
 
 @implicitNotFound(
   msg =
@@ -15,13 +14,12 @@ trait SubscriptionStream[StreamSource[_]] {
   def supported[T[X]](other: SubscriptionStream[T]): Boolean
 
   def single[T](value: T): StreamSource[T]
-  def singleFuture[T](value: Future[T]): StreamSource[T]
-  def first[T](s: StreamSource[T]): Future[T]
+  def singleF[T](value: StreamSource[T]): StreamSource[T]
+  def first[T](s: StreamSource[T]): StreamSource[T]
   def failed[T](e: Throwable): StreamSource[T]
   def onComplete[Ctx, Res](result: StreamSource[Res])(op: => Unit): StreamSource[Res]
-  def flatMapFuture[Ctx, Res, T](future: Future[T])(
-      resultFn: T => StreamSource[Res]): StreamSource[Res]
-  def mapFuture[A, B](source: StreamSource[A])(fn: A => Future[B]): StreamSource[B]
+  def flatMap[Ctx, Res, T](f: StreamSource[T])(resultFn: T => StreamSource[Res]): StreamSource[Res]
+  def mapF[A, B](source: StreamSource[A])(fn: A => StreamSource[B]): StreamSource[B]
   def map[A, B](source: StreamSource[A])(fn: A => B): StreamSource[B]
   def merge[T](streams: Vector[StreamSource[T]]): StreamSource[T]
   def recover[T](stream: StreamSource[T])(fn: Throwable => T): StreamSource[T]
