@@ -13,8 +13,9 @@ mimaPreviousArtifacts := {
 description := "Sangria Streaming API"
 homepage := Some(url("http://sangria-graphql.org"))
 licenses := Seq(
-  "Apache License, ASL Version 2.0" → url("http://www.apache.org/licenses/LICENSE-2.0"))
+  "Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
+ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("17"))
 ThisBuild / crossScalaVersions := Seq("2.12.21", "2.13.18", "3.3.8")
 ThisBuild / scalaVersion := crossScalaVersions.value.last
 ThisBuild / githubWorkflowPublishTargetBranches := List()
@@ -50,7 +51,7 @@ ThisBuild / githubWorkflowPublish := Seq(
 )
 
 // nice *magenta* prompt!
-ThisBuild / shellPrompt := { state ⇒
+ThisBuild / shellPrompt := { state =>
   scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
 }
 
